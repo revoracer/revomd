@@ -1,0 +1,37 @@
+# revomd
+
+Normalized market-data domain vocabulary and wire schema, header-only, zero runtime dependencies.
+
+## Primary documents
+
+- README: https://github.com/revoracer/revomd/blob/main/README.md
+- License: https://github.com/revoracer/revomd/blob/main/LICENSE
+- Security policy: https://github.com/revoracer/revomd/blob/main/SECURITY.md
+- Contributing: https://github.com/revoracer/revomd/blob/main/CONTRIBUTING.md
+- Agent instructions: https://github.com/revoracer/revomd/blob/main/AGENTS.md
+
+## Source areas
+
+- Domain vocabulary header: https://github.com/revoracer/revomd/blob/main/include/revomd/types.h
+- Wire/journal schema header: https://github.com/revoracer/revomd/blob/main/include/revomd/wire.h
+- Tests: https://github.com/revoracer/revomd/tree/main/tests
+- Build script: https://github.com/revoracer/revomd/blob/main/build.sh
+- CMake project: https://github.com/revoracer/revomd/blob/main/CMakeLists.txt
+
+## Integration notes
+
+- Requires CMake 3.23 or newer and a C++20-conformant compiler.
+- Header-only INTERFACE CMake target; link CMake target `revomd::revomd`.
+- No runtime dependencies; no platform-specific code.
+- `include/revomd/types.h` is domain vocabulary only (`Price`, `Quantity`,
+  `Side`, `Action`, `AggressorSide`, `MboAction`, `QuoteLevel`, `RestingOrder`,
+  `LevelUpdate`, `is_valid()`). Safe for a pure consumer to include without
+  taking on any transport or venue opinion.
+- `include/revomd/wire.h` is the persisted journal/wire schema: `EventHeader`,
+  `Trade`/`TradeData`, `Bbo`/`BboData`, `BookChunk`/`BookLevel`, `MboEvent`/
+  `MboData`, feed identity (`Venue`, `SourceId`, `InstrumentDefinition`,
+  `SourceDefinition`), and the `MsgType` frame-tag registry.
+- Wire-record layout is persisted: structs are standard-layout, trivially
+  copyable, and size/offset-asserted. Field changes require a
+  `kSchemaVersion` bump.
+- `revomd` is not a transport, broker, order book, or venue codec.

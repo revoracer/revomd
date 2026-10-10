@@ -1,0 +1,10 @@
+Revomd
+Copyright 2026 RevoRacer
+
+Revomd is maintained by RevoRacer.
+
+Revomd itself is header-only and has no runtime dependencies.
+
+Bundled dependency (as a Git submodule under external/, used for tests only; see the LICENSE file in that directory):
+
+  Catch2         - Boost Software License 1.0   (external/Catch2)
